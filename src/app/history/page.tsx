@@ -27,6 +27,28 @@ function formatTime(isoString: string) {
   });
 }
 
+interface SortHeaderProps {
+  label: string;
+  col: SortKey;
+  sortKey: SortKey;
+  sortDir: SortDir;
+  onToggle: (col: SortKey) => void;
+}
+
+function SortHeader({ label, col, sortKey, sortDir, onToggle }: SortHeaderProps) {
+  return (
+    <button
+      onClick={() => onToggle(col)}
+      className="flex items-center gap-1 text-xs font-medium text-gray-400 hover:text-white transition-colors"
+    >
+      {label}
+      {sortKey === col && (
+        <span className="text-blue-400">{sortDir === "desc" ? "↓" : "↑"}</span>
+      )}
+    </button>
+  );
+}
+
 function HistoryContent() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<"All" | RideStatus>("All");
@@ -80,20 +102,6 @@ function HistoryContent() {
     }
   }
 
-  function SortHeader({ label, col }: { label: string; col: SortKey }) {
-    return (
-      <button
-        onClick={() => toggleSort(col)}
-        className="flex items-center gap-1 text-xs font-medium text-gray-400 hover:text-white transition-colors"
-      >
-        {label}
-        {sortKey === col && (
-          <span className="text-blue-400">{sortDir === "desc" ? "↓" : "↑"}</span>
-        )}
-      </button>
-    );
-  }
-
   return (
     <div className="p-6 max-w-7xl mx-auto">
       {/* Header */}
@@ -142,16 +150,16 @@ function HistoryContent() {
             <thead>
               <tr className="border-b border-gray-700 bg-gray-900">
                 <th className="px-4 py-3 text-left">
-                  <SortHeader label="Date" col="date" />
+                  <SortHeader label="Date" col="date" sortKey={sortKey} sortDir={sortDir} onToggle={toggleSort} />
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-400">
                   Confirmation
                 </th>
                 <th className="px-4 py-3 text-left">
-                  <SortHeader label="Passenger" col="passenger" />
+                  <SortHeader label="Passenger" col="passenger" sortKey={sortKey} sortDir={sortDir} onToggle={toggleSort} />
                 </th>
                 <th className="px-4 py-3 text-left">
-                  <SortHeader label="Driver" col="driver" />
+                  <SortHeader label="Driver" col="driver" sortKey={sortKey} sortDir={sortDir} onToggle={toggleSort} />
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-400">
                   Chaperone

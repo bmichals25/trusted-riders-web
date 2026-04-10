@@ -3,7 +3,6 @@
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import RideCard from "@/components/RideCard";
-import StatusBadge from "@/components/StatusBadge";
 import NewRideForm from "@/components/NewRideForm";
 import { mockRides, mockDrivers } from "@/lib/mock-data";
 import { RideStatus } from "@/types";
@@ -152,6 +151,3 @@ export default function RidesPage() {
   );
 }
 
-// Suppress unused import warnings
-const _StatusBadge = StatusBadge;
-void _StatusBadge;

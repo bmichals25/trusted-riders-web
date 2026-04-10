@@ -9,8 +9,12 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "TrustedRiders — NEMT Operations",
-  description: "Non-Emergency Medical Transportation operations dashboard",
+  title: {
+    template: "%s — TrustedRiders",
+    default: "TrustedRiders NEMT Operations",
+  },
+  description: "Non-Emergency Medical Transportation operations dashboard for dispatchers and operations managers.",
+  icons: { icon: "/favicon.ico" },
 };
 
 export default function RootLayout({
